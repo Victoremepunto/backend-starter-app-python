@@ -11,3 +11,6 @@ install_pre_commit:
 	make -C /tmp/infosec-dev-tools/rh-pre-commit install
 	python3 -m rh_pre_commit.multi configure --configure-git-template --force
 	python3 -m rh_pre_commit.multi install --force --path ./
+
+run:
+	python manage.py runserver
