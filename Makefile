@@ -1,7 +1,10 @@
 TEMPDIR_INFOSECTOOLS = /tmp/infosec-dev-tools
 VENV=.venv
 
-install_pre_commit: check_venv
+run: venv_check
+	python manage.py runserver
+
+install_pre_commit: venv_check
 	# Remove any outdated tools
 	rm -rf $(TEMPDIR_INFOSECTOOLS)
 	# Clone up-to-date tools
@@ -15,7 +18,9 @@ install_pre_commit: check_venv
 	python -m rh_pre_commit.multi configure --configure-git-template --force
 	python -m rh_pre_commit.multi install --force --path ./
 
-check_venv:
+	rm -rf $(TEMPDIR_INFOSECTOOLS)
+
+venv_check:
 ifndef VIRTUAL_ENV
 	echo "ERROR: Not in a virtual environment"
 	exit 1
@@ -25,11 +30,8 @@ venv_create:
 	python -m venv $(VENV)
 	echo "Virtual environment $(VENV) created, activate running: source $(VENV)/bin/activate"
 
-install: check_venv
+install: venv_check
 	pip install -e .
-
-run:
-	python manage.py runserver
 
 clean:
 	rm -rf __pycache__
