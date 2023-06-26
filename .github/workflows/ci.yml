@@ -23,7 +23,7 @@ jobs:
     - name: run tests
       run: |
         source .venv/bin/activate
-        make test
+        make coverage
     - name: Upload code coverage report to Codecov.io
       uses: codecov/codecov-action@v3
       with:

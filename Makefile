@@ -44,5 +44,8 @@ clean:
 	find . -name "*.pyc" -exec rm -f {} \;
 
 test: venv_check install_dev
+	python manage.py test
+
+coverage: venv_check install_dev
 	coverage run --source="." manage.py test
-	coverage report
+	coverage xml
