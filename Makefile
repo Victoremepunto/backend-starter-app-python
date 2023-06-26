@@ -36,6 +36,13 @@ endif
 install: venv_check
 	pip install -e .
 
+install_dev: venv_check
+	pip install -e .[dev]
+
 clean:
 	rm -rf __pycache__
 	find . -name "*.pyc" -exec rm -f {} \;
+
+test: venv_check install_dev
+	coverage run --source="." manage.py test
+	coverage report
